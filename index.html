@@ -24,7 +24,7 @@ body{margin:0;background:#0b1220;color:#edf4ff;font:15px system-ui}header{paddin
   <button class="secondary" onclick="toggleAddCoin()">+ Add Coin</button>
   <button class="secondary" onclick="exportData()">Export</button>
 </div>
-<p id="msg" class="note">Checks Binance announcements (c=49 Monitoring & c=161 Delisting), Google News sources, and X activity.</p>
+<p id="msg" class="note">Checks Binance announcements (c=49 Monitoring & c=161 Delisting), Google News sources, and X activity (30d window).</p>
 
 <section id="addCoinPanel" class="panel hide" style="margin-bottom:12px">
   <div class="row" style="justify-content:space-between">
@@ -59,7 +59,6 @@ body{margin:0;background:#0b1220;color:#edf4ff;font:15px system-ui}header{paddin
 <section id="detail" class="panel hide" style="margin-top:12px"></section>
 </main>
 <script>
-// [Symbol, CoinGeckoID, Name, XHandle, Quantity, SnapshotUSDT, CumulativePNL, PNLPercent]
 const BASE_A=[
   ["ZEN","zencash","Horizen","horizenglobal",41.0255067893,153.8,-310.09,-6.27],
   ["MANA","decentraland","Decentraland","decentraland",1499.8229021707,85.64,-250.38,-8.73],
@@ -101,15 +100,18 @@ let xScan=JSON.parse(localStorage.getItem("azxscan")||"{}");
 let lastRun=localStorage.getItem("azlastupdate")||"—";
 let selected=null;
 
-function getAssets(){
-  return [...BASE_A,...customCoins];
-}
-
+function getAssets(){ return [...BASE_A,...customCoins]; }
 document.getElementById("updated").textContent=lastRun;
 
-function toggleAddCoin(){
-  document.getElementById("addCoinPanel").classList.toggle("hide");
+function isRecentItem(pubDateStr, maxDays=30){
+  if(!pubDateStr) return false;
+  let ts=Date.parse(pubDateStr);
+  if(isNaN(ts)) return false;
+  let ageDays=(Date.now()-ts)/86400000;
+  return ageDays>=0 && ageDays<=maxDays;
 }
+
+function toggleAddCoin(){ document.getElementById("addCoinPanel").classList.toggle("hide"); }
 
 function addNewCoin(){
   let sym=document.getElementById("newSym").value.trim().toUpperCase();
@@ -118,21 +120,11 @@ function addNewCoin(){
   let handle=document.getElementById("newHandle").value.trim().replace(/^@+/,"");
   let qty=parseFloat(document.getElementById("newQty").value)||0;
   let snap=parseFloat(document.getElementById("newSnap").value)||0;
-
-  if(!sym || !id || !name){
-    alert("Please enter Symbol, CoinGecko ID, and Project Name.");
-    return;
-  }
-  if(getAssets().some(x=>x[0]===sym)){
-    alert(sym+" already exists in the list.");
-    return;
-  }
+  if(!sym || !id || !name){ alert("Please enter Symbol, CoinGecko ID, and Project Name."); return; }
+  if(getAssets().some(x=>x[0]===sym)){ alert(sym+" already exists in the list."); return; }
   customCoins.push([sym,id,name,handle,qty,snap,0,0]);
   localStorage.setItem("azcustomcoins",JSON.stringify(customCoins));
-  document.getElementById("newSym").value="";
-  document.getElementById("newId").value="";
-  document.getElementById("newName").value="";
-  document.getElementById("newHandle").value="";
+  ["newSym","newId","newName","newHandle"].forEach(k=>document.getElementById(k).value="");
   document.getElementById("newQty").value="0";
   document.getElementById("newSnap").value="0";
   toggleAddCoin();
@@ -178,10 +170,8 @@ function getBinanceCoinAlerts(sym, name){
   (binanceNotices||[]).forEach(n=>{
     let t=n.title||"";
     let tl=t.toLowerCase();
-    let isRelevantNotice=BINANCE_NOTICE_PHRASES.some(p=>tl.includes(p));
-    if(isRelevantNotice && matchCoinInNotice(sym,name,t)){
-      hits.push(n);
-    }
+    let isRelevant=BINANCE_NOTICE_PHRASES.some(p=>tl.includes(p));
+    if(isRelevant && matchCoinInNotice(sym,name,t)) hits.push(n);
   });
   return hits;
 }
@@ -196,7 +186,8 @@ function getXStatus(sym){
   if(n.xStatus && n.xStatus!=="auto") return n.xStatus;
   let xs=xScan[sym];
   if(xs && xs.ok){
-    if((xs.items||[]).length>0) return "active";
+    let recent=(xs.items||[]).filter(it=>isRecentItem(it.pubDate,30));
+    if(recent.length>0) return "active";
     return "low";
   }
   return "unchecked";
@@ -230,10 +221,10 @@ function analyzeCombinedState(sym, name){
   }
 
   let srcPart=sourcesFound.slice(0,2).join(" · ") || "News";
-  let xPart=xSt==="active" ? `X: Active (@${handle})` : (xSt==="low" ? `X: Low/Check (@${handle})` : `X: @${handle}`);
+  let xPart=xSt==="active" ? `X: Active 30d (@${handle})` : (xSt==="low" ? `X: >30d/Low (@${handle})` : `X: @${handle}`);
 
   if(mon){
-    return {level:"alert",score:10,label:"MONITORING / DELIST RISK",sub:`Binance Announcement Match · ${srcPart}`,cls:"tag",mon:true};
+    return {level:"alert",score:10,label:"MONITORING / DELIST RISK",sub:`Binance Notice · ${srcPart}`,cls:"tag",mon:true};
   }
   if(manualRisk || riskHits.length>0){
     return {level:"alert",score:8,label:"NEWS / RISK ALERT",sub:`${srcPart} · ${xPart}`,cls:"tag",mon:false};
@@ -242,7 +233,7 @@ function analyzeCombinedState(sym, name){
     return {level:"alert",score:6,label:"DORMANT X",sub:`@${handle} · Silent / Inactive`,cls:"warn-tag",mon:false};
   }
   if(xSt==="low" && newsCount===0){
-    return {level:"alert",score:4,label:"QUIET / LOW X",sub:xPart,cls:"warn-tag",mon:false};
+    return {level:"alert",score:4,label:"QUIET / >30d X",sub:xPart,cls:"warn-tag",mon:false};
   }
   if(xSt==="active" || posHits>0 || sourcesFound.length>0){
     return {level:"active",score:0,label:"ACTIVE",sub:`${srcPart} · ${xPart}`,cls:"ok-tag",mon:false};
@@ -264,10 +255,7 @@ function render(){
     let val=getCoinValue(a);
     totalUsd+=val;
     let st=analyzeCombinedState(a[0],a[2]);
-    if(st.level==="alert" || st.mon){
-      riskUsd+=val;
-      riskCnt++;
-    }
+    if(st.level==="alert" || st.mon){ riskUsd+=val; riskCnt++; }
   });
   document.getElementById("totalVal").textContent="$"+totalUsd.toFixed(2);
   document.getElementById("riskVal").textContent=`$${riskUsd.toFixed(2)} (${riskCnt})`;
@@ -306,22 +294,10 @@ function render(){
     let st=analyzeCombinedState(sym,name);
     let chg=m.price_change_percentage_24h;
     return `<tr class="coin-row" onclick="show('${sym}')">
-      <td>
-        <b>${sym}</b> ${st.mon?'<span class="tag">MONITORING</span>':''}<br>
-        <small>${name}</small>
-      </td>
-      <td>
-        <b>$${val.toFixed(2)}</b><br>
-        <small>${qty.toLocaleString(undefined,{maximumFractionDigits:2})} ${sym}</small>
-      </td>
-      <td>
-        <span class="${st.cls}">${escapeHtml(st.label)}</span><br>
-        <small>${escapeHtml(st.sub)}</small>
-      </td>
-      <td class="price">
-        <b>${m.current_price!=null?'$'+m.current_price:'—'}</b><br>
-        <small class="${(chg||0)>=0?'good':'bad'}">${chg==null?'':chg.toFixed(2)+'% 24h'}</small>
-      </td>
+      <td><b>${sym}</b> ${st.mon?'<span class="tag">MONITORING</span>':''}<br><small>${name}</small></td>
+      <td><b>$${val.toFixed(2)}</b><br><small>${qty.toLocaleString(undefined,{maximumFractionDigits:2})} ${sym}</small></td>
+      <td><span class="${st.cls}">${escapeHtml(st.label)}</span><br><small>${escapeHtml(st.sub)}</small></td>
+      <td class="price"><b>${m.current_price!=null?'$'+m.current_price:'—'}</b><br><small class="${(chg||0)>=0?'good':'bad'}">${chg==null?'':chg.toFixed(2)+'% 24h'}</small></td>
     </tr>`;
   }).join("") || `<tr><td colspan="4" class="note">No coins match filter.</td></tr>`;
 }
@@ -363,18 +339,44 @@ async function fetchRssItems(query){
 }
 
 async function fetchBinanceAnnouncements(){
-  let q1='site:binance.com/en/support/announcement "Monitoring Tag" OR "Extend the Monitoring Tag"';
-  let q2='site:binance.com/en/support/announcement "Will Delist" OR "Delisting"';
+  const queries=[
+    '"Binance" "Monitoring Tag" ("ZIL" OR "ONE" OR "Zilliqa" OR "Harmony" OR "Extend the Monitoring Tag")',
+    '"Binance Will Delist" OR "Binance" "Delisting" ("ZIL" OR "ONE" OR "Zilliqa" OR "Harmony")',
+    'site:binance.com "Monitoring Tag" OR "Delisting"'
+  ];
   let combined=[];
-  for(let q of [q1,q2]){
+  for(let q of queries){
     try{
       let items=await fetchRssItems(q);
       combined.push(...items);
     }catch(e){}
   }
+
+  const directPages=[
+    "https://www.binance.com/en-GB/support/announcement/latest-binance-news?c=49&navId=49",
+    "https://www.binance.com/en-GB/support/announcement/delisting?c=161&navId=161"
+  ];
+  for(let url of directPages){
+    try{
+      let r=await fetch("https://api.allorigins.win/raw?url="+encodeURIComponent(url));
+      if(r.ok){
+        let html=await r.text();
+        let doc=new DOMParser().parseFromString(html,"text/html");
+        doc.querySelectorAll("a,h2,h3,h4").forEach(el=>{
+          let txt=(el.textContent||"").replace(/\s+/g," ").trim();
+          let href=el.getAttribute("href")||"";
+          if(txt.length>20 && txt.length<240 && /(monitoring tag|delist|delisting)/i.test(txt)){
+            let fullLink=href.startsWith("http")?href:(href.startsWith("/")?"https://www.binance.com"+href:url);
+            combined.push({title:txt,source:"Binance Announcement",link:fullLink,pubDate:new Date().toUTCString()});
+          }
+        });
+      }
+    }catch(e){}
+  }
+
   const seen=new Set();
   binanceNotices=combined.filter(it=>{
-    let k=(it.title||"").toLowerCase();
+    let k=(it.title||"").toLowerCase().trim();
     if(!k || seen.has(k)) return false;
     seen.add(k);
     return true;
@@ -411,7 +413,7 @@ async function refresh(singleSym=null){
   const ALL=getAssets();
   let msg=document.getElementById("msg");
   let targetList=singleSym?ALL.filter(x=>x[0]===singleSym):ALL;
-  msg.textContent=singleSym?`Updating ${singleSym} price, Binance announcements, news & X…`:"Fetching CoinGecko prices & Binance announcements (c=49 & c=161)…";
+  msg.textContent=singleSym?`Updating ${singleSym} price, Binance notices, news & X…`:"Fetching CoinGecko prices & Binance notices (c=49 & c=161)…";
 
   try{
     let ids=targetList.map(x=>x[1]).join(",");
@@ -497,11 +499,14 @@ function show(s,scroll=true){
 
   let xItemsHtml=`<p class="note">Click <b>↻ Update ${sym}</b> to check indexed X mentions/updates.</p>`;
   if(xs && xs.ok){
-    xItemsHtml=(xs.items||[]).map(it=>`<div class="feed-item">
-      <span class="ok-tag">X SIGNAL</span>
-      <a style="color:#edf4ff;text-decoration:none" target="_blank" href="${it.link}"><b>${escapeHtml(it.title)}</b></a><br>
-      <small>${escapeHtml(it.source||"X/Web")} · ${escapeHtml(it.pubDate||"")}</small>
-    </div>`).join("") || `<p class="note">Low/no recent indexed X signals for @${escapeHtml(handle)}. Check live posts directly below.</p>`;
+    xItemsHtml=(xs.items||[]).map(it=>{
+      let recent=isRecentItem(it.pubDate,30);
+      return `<div class="feed-item">
+        <span class="${recent?'ok-tag':'warn-tag'}">${recent?'RECENT X':'OLD / >30d'}</span>
+        <a style="color:#edf4ff;text-decoration:none" target="_blank" href="${it.link}"><b>${escapeHtml(it.title)}</b></a><br>
+        <small>${escapeHtml(it.source||"X/Web")} · ${escapeHtml(it.pubDate||"")}</small>
+      </div>`;
+    }).join("") || `<p class="note">Low/no recent indexed X signals for @${escapeHtml(handle)}. Check live posts directly below.</p>`;
   }
 
   let d=document.getElementById("detail");
@@ -562,14 +567,8 @@ function show(s,scroll=true){
 
     <h3>Edit Holdings & Status</h3>
     <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-      <div>
-        <label>Quantity Held</label>
-        <input id="editQty" type="number" step="any" class="full" value="${qty}">
-      </div>
-      <div>
-        <label>X Handle (@)</label>
-        <input id="editHandle" class="full" value="${escapeHtml(handle)}">
-      </div>
+      <div><label>Quantity Held</label><input id="editQty" type="number" step="any" class="full" value="${qty}"></div>
+      <div><label>X Handle (@)</label><input id="editHandle" class="full" value="${escapeHtml(handle)}"></div>
       <div>
         <label>Team X Status</label>
         <select id="xStatus" class="full">
@@ -580,7 +579,7 @@ function show(s,scroll=true){
         </select>
       </div>
     </div>
-    <label><input type="checkbox" id="hasMonitoring" ${n.hasMonitoring?"checked":""}> Manual Monitoring / Delist Flag</label>
+    <label><input type="checkbox" id="hasMonitoring" ${st.mon?"checked":""}> Manual Monitoring / Delist Flag</label>
     <label><input type="checkbox" id="hasRisk" ${n.hasRisk?"checked":""}> Mark as Risk Alert</label>
     <label>Notes</label>
     <textarea id="team" class="full" rows="2">${escapeHtml(n.team||"")}</textarea>
