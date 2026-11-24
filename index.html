@@ -1,27 +1,19 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101827"><title>AZ Crypto Intelligence</title><link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg" type="image/svg+xml"><style>
-body{margin:0;background:#0b1220;color:#edf4ff;font:15px system-ui}header{padding:20px 14px;background:#142b3c}.wrap{max-width:860px;margin:auto;padding:14px}h1{margin:0;font-size:22px}.muted,small{color:#9eb0c8}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}.stat,.coin,.panel{background:#121d2e;border:1px solid #26364d;border-radius:13px;padding:12px}.stat b{display:block;font-size:18px;margin-top:3px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}input,button,select,textarea{background:#18263a;color:#edf4ff;border:1px solid #30445e;border-radius:9px;padding:10px 12px;font:inherit}input{flex:1;min-width:130px}button{background:#1e8065;border:0;font-weight:bold;cursor:pointer}button.secondary{background:#243852}button.warn{background:#8a2c3b}.list{display:grid;gap:8px}.coin{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer}.price{text-align:right;white-space:nowrap}.tag{color:#ff9ca6;background:#48232d;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block}.warn-tag{color:#ffd180;background:#4a3514;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block}.ok-tag{color:#8df0c8;background:#173d33;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block}.good{color:#36d69a}.bad{color:#ff6b79}.hide{display:none}.links{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.links a{color:#8ddfc4;background:#18263a;padding:9px;border-radius:8px;text-decoration:none;font-size:13px}label{display:block;color:#9eb0c8;font-size:12px;margin:8px 0 4px}.full{width:100%;box-sizing:border-box}.note{font-size:12px;line-height:1.5;color:#9eb0c8}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.feed-item{background:#162338;border:1px solid #293b56;border-radius:9px;padding:9px;margin-top:6px;font-size:13px}.feed-item.risk{border-color:#a8384b;background:#2b1822}@media(min-width:640px){.grid{grid-template-columns:repeat(4,1fr)}}
-</style></head><body><header><div class="wrap"><h1>◈ AZ Crypto Intelligence</h1><p class="muted">Portfolio Exposure · Automated X & Google News Radar</p></div></header><main class="wrap">
+body{margin:0;background:#0b1220;color:#edf4ff;font:15px system-ui}header{padding:20px 14px;background:#142b3c}.wrap{max-width:900px;margin:auto;padding:14px}h1{margin:0;font-size:22px}.muted,small{color:#9eb0c8}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}.stat,.panel{background:#121d2e;border:1px solid #26364d;border-radius:13px;padding:12px}.stat b{display:block;font-size:18px;margin-top:3px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}input,button,select,textarea{background:#18263a;color:#edf4ff;border:1px solid #30445e;border-radius:9px;padding:10px 12px;font:inherit}input{flex:1;min-width:130px}button{background:#1e8065;border:0;font-weight:bold;cursor:pointer}button.secondary{background:#243852}button.warn{background:#8a2c3b}.table-wrap{overflow-x:auto;background:#121d2e;border:1px solid #26364d;border-radius:13px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;border-bottom:1px solid #213047;text-align:left;vertical-align:top}th{color:#9eb0c8;font-weight:600;background:#101a2a;position:sticky;top:0}tr.coin-row{cursor:pointer}tr.coin-row:hover{background:#17253b}.price{text-align:right;white-space:nowrap}.tag{color:#ff9ca6;background:#48232d;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block;margin:1px 0}.warn-tag{color:#ffd180;background:#4a3514;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block;margin:1px 0}.ok-tag{color:#8df0c8;background:#173d33;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block;margin:1px 0}.neu-tag{color:#a9c2e8;background:#1c2d45;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block;margin:1px 0}.good{color:#36d69a}.bad{color:#ff6b79}.hide{display:none}.links{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.links a{color:#8ddfc4;background:#18263a;padding:9px;border-radius:8px;text-decoration:none;font-size:13px}label{display:block;color:#9eb0c8;font-size:12px;margin:8px 0 4px}.full{width:100%;box-sizing:border-box}.note{font-size:12px;line-height:1.5;color:#9eb0c8}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.feed-item{background:#162338;border:1px solid #293b56;border-radius:9px;padding:9px;margin-top:6px;font-size:13px}.feed-item.risk{border-color:#a8384b;background:#2b1822}@media(min-width:640px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style></head><body><header><div class="wrap"><h1>◈ AZ Crypto Intelligence</h1><p class="muted">Portfolio Exposure · Google News & Source Status (Binance, CoinDesk, CMC, Crypto.news)</p></div></header><main class="wrap">
 <div class="stats">
   <div class="stat"><small>Portfolio Value</small><b id="totalVal">$618.62</b></div>
-  <div class="stat"><small>At Risk / Dormant</small><b id="riskVal">$32.84 (0)</b></div>
+  <div class="stat"><small>Risk / Monitoring</small><b id="riskVal">$32.84 (2)</b></div>
   <div class="stat"><small>Last Update</small><b id="updated">—</b></div>
 </div>
 
-<div class="panel" style="margin-bottom:10px">
-  <div class="row">
-    <input id="apiUrl" placeholder="Backend API URL (e.g. https://api.yourdomain.com)">
-    <button class="secondary" onclick="saveApiUrl()">Save API</button>
-  </div>
-  <small id="apiStatus">Optional: Add FastAPI URL for automatic X & Google News scanning.</small>
-</div>
-
 <div class="toolbar">
-  <input id="search" placeholder="Search coin or @handle…">
+  <input id="search" placeholder="Search coin, source, or status…">
   <select id="filter">
     <option value="all">All coins (24)</option>
-    <option value="alert">⚠ Risk / Dormant X</option>
+    <option value="alert">⚠ Risk / Dormant / Monitoring</option>
     <option value="monitoring">Binance Monitoring</option>
-    <option value="active">Active Team</option>
+    <option value="active">Active News / Sources</option>
   </select>
   <select id="sort">
     <option value="value">Sort: Highest Value</option>
@@ -31,8 +23,22 @@ body{margin:0;background:#0b1220;color:#edf4ff;font:15px system-ui}header{paddin
   <button onclick="refresh()">↻ Update all</button>
   <button class="secondary" onclick="exportData()">Export</button>
 </div>
-<p id="msg" class="note">Press Update all to refresh live prices and scan X & News.</p>
-<div id="coins" class="list"></div>
+<p id="msg" class="note">Press Update all to fetch live prices and scan Google News (Binance, CoinDesk, CoinMarketCap, Crypto.news).</p>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Asset</th>
+        <th>Holdings / Value</th>
+        <th>News & Source State</th>
+        <th style="text-align:right">Price / 24h</th>
+      </tr>
+    </thead>
+    <tbody id="coins"></tbody>
+  </table>
+</div>
+
 <section id="detail" class="panel hide" style="margin-top:12px"></section>
 </main>
 <script>
@@ -44,7 +50,7 @@ const A=[
   ["ENJ","enjincoin","Enjin Coin","enjin",1877.1141346371,35.08,-365.63,-31.41],
   ["DYDX","dydx-chain","dYdX","dYdX",452.784226437,32.94,-682.98,-31.21],
   ["ARB","arbitrum","Arbitrum","arbitrum",255.9240320093,28.89,-172.91,-21.94],
-  ["FET","artificial-superintelligence-alliance","Artificial Superintelligence Alliance","ASI_Alliance",234.2016060743,25.88,-226.29,-19.05],
+  ["FET","fetch-ai","Artificial Superintelligence Alliance","ASI_Alliance",234.2016060743,25.88,-226.29,-19.05],
   ["HOT","holotoken","Holo","H_O_L_O_",71667.6101003521,23.87,-76.28,-17.09],
   ["ZIL","zilliqa","Zilliqa","zilliqa",26735.4700282453,21.33,-287.98,-21.11],
   ["EGLD","elrond-erd-2","MultiversX","MultiversX",9.0268523868,20.72,-260.29,-15.71],
@@ -64,30 +70,17 @@ const A=[
   ["ROSE","oasis-network","Oasis Network","oasisprotocol",492.3851796542,2.17,-68.52,-5.87]
 ];
 const tags={ONE:"Binance Monitoring Tag",ZIL:"Binance Monitoring Tag"};
+const TRUSTED_SOURCES=["Binance","CoinDesk","CoinMarketCap","Crypto.news","Cointelegraph","Decrypt","The Block"];
+const RISK_WORDS=["hack","hacked","exploit","exploited","vulnerability","breach","compromised","delist","delisting","monitoring tag","halt","halted","insolvent","lawsuit","rug","warning","attack"];
+const POS_WORDS=["launch","upgrade","partnership","mainnet","integration","roadmap","release","update","staking","expand"];
 
 let market=JSON.parse(localStorage.getItem("azmarket")||"{}");
 let notes=JSON.parse(localStorage.getItem("aznotes")||"{}");
-let intel=JSON.parse(localStorage.getItem("azintel")||"{}");
+let newsScan=JSON.parse(localStorage.getItem("aznews")||"{}");
 let lastRun=localStorage.getItem("azlastupdate")||"—";
-let apiBase=localStorage.getItem("azapiurl")||"";
 let selected=null;
 
 document.getElementById("updated").textContent=lastRun;
-document.getElementById("apiUrl").value=apiBase;
-updateApiStatus();
-
-function updateApiStatus(){
-  document.getElementById("apiStatus").textContent=apiBase
-    ?`Connected: ${apiBase}/api/analyze`
-    :"No backend URL set (Live CoinGecko prices & manual links work; set API URL for auto X & News).";
-}
-
-function saveApiUrl(){
-  apiBase=document.getElementById("apiUrl").value.trim().replace(/\/+$/,"");
-  localStorage.setItem("azapiurl",apiBase);
-  updateApiStatus();
-  document.getElementById("msg").textContent="Backend API URL saved.";
-}
 
 function getHandle(sym){
   let def=(A.find(x=>x[0]===sym)||[])[3]||"";
@@ -107,16 +100,53 @@ function getCoinValue(a){
   return snapUsdt;
 }
 
-function getSignal(sym){
+function analyzeNewsState(sym){
   let n=notes[sym]||{};
-  let ai=intel[sym]||{};
-  let xStat=(ai.x&&ai.x.status)||n.xStatus||"unchecked";
-  let newsRisk=(ai.news&&ai.news.riskHits&&ai.news.riskHits.length>0)||Boolean(n.hasRisk);
-  if(newsRisk) return {level:"alert",score:3,label:"NEWS / HACK ALERT",cls:"tag"};
-  if(xStat==="dormant") return {level:"alert",score:3,label:`DORMANT X (${ai.x?.daysSinceLastPost??">14"}d)`,cls:"warn-tag"};
-  if(xStat==="low") return {level:"alert",score:2,label:`SLOW X (${ai.x?.daysSinceLastPost??"5+"}d)`,cls:"warn-tag"};
-  if(xStat==="active") return {level:"active",score:0,label:"ACTIVE X",cls:"ok-tag"};
-  return {level:"other",score:1,label:"UNCHECKED",cls:"tag"};
+  let ns=newsScan[sym]||null;
+  let manualDormant=n.xStatus==="dormant";
+  let manualRisk=Boolean(n.hasRisk);
+
+  if(manualRisk){
+    return {level:"alert",score:4,label:"RISK ALERT",sourceLabel:n.sourceNote||"Manual Flag",cls:"tag"};
+  }
+  if(manualDormant){
+    return {level:"alert",score:3,label:"DORMANT TEAM",sourceLabel:n.sourceNote||"Manual X",cls:"warn-tag"};
+  }
+  if(!ns || !ns.ok){
+    return {level:"other",score:1,label:"UNCHECKED",sourceLabel:"Google News",cls:"neu-tag"};
+  }
+
+  let items=ns.items||[];
+  let sourcesFound=[];
+  let riskHits=[];
+  let posHits=0;
+
+  items.forEach(it=>{
+    let text=((it.title||"")+" "+(it.source||"")).toLowerCase();
+    TRUSTED_SOURCES.forEach(src=>{
+      if(text.includes(src.toLowerCase()) && !sourcesFound.includes(src)){
+        sourcesFound.push(src);
+      }
+    });
+    if(it.source && !sourcesFound.includes(it.source)){
+      sourcesFound.push(it.source);
+    }
+    let matchedRisk=RISK_WORDS.filter(w=>text.includes(w));
+    if(matchedRisk.length) riskHits.push({title:it.title,link:it.link,words:matchedRisk,source:it.source||"News"});
+    if(POS_WORDS.some(w=>text.includes(w))) posHits++;
+  });
+
+  let srcText=sourcesFound.slice(0,2).join(" · ") || "Google News";
+  if(riskHits.length>0){
+    return {level:"alert",score:4,label:`RISK (${riskHits[0].words[0].toUpperCase()})`,sourceLabel:srcText,cls:"tag",riskHits,sourcesFound};
+  }
+  if(items.length===0){
+    return {level:"alert",score:2,label:"NO RECENT NEWS",sourceLabel:"Quiet / Watch",cls:"warn-tag",riskHits:[],sourcesFound:[]};
+  }
+  if(posHits>0 || sourcesFound.length>0){
+    return {level:"active",score:0,label:"ACTIVE NEWS",sourceLabel:srcText,cls:"ok-tag",riskHits:[],sourcesFound};
+  }
+  return {level:"other",score:1,label:"NEWS FOUND",sourceLabel:srcText,cls:"neu-tag",riskHits:[],sourcesFound};
 }
 
 function render(){
@@ -128,8 +158,8 @@ function render(){
   A.forEach(a=>{
     let val=getCoinValue(a);
     totalUsd+=val;
-    let sig=getSignal(a[0]);
-    if(sig.level==="alert" || tags[a[0]]){
+    let st=analyzeNewsState(a[0]);
+    if(st.level==="alert" || tags[a[0]]){
       riskUsd+=val;
       riskCnt++;
     }
@@ -138,19 +168,20 @@ function render(){
   document.getElementById("riskVal").textContent=`$${riskUsd.toFixed(2)} (${riskCnt})`;
 
   let filtered=A.filter(a=>{
-    let h=getHandle(a[0]).toLowerCase();
-    if(q && !(a[0]+" "+a[2]+" "+h).toLowerCase().includes(q)) return false;
-    let sig=getSignal(a[0]).level;
-    if(f==="monitoring") return Boolean(tags[a[0]]);
-    if(f==="alert") return sig==="alert" || Boolean(tags[a[0]]);
-    if(f==="active") return sig==="active";
+    let [sym,,name]=a;
+    let st=analyzeNewsState(sym);
+    let hay=(sym+" "+name+" "+st.label+" "+st.sourceLabel).toLowerCase();
+    if(q && !hay.includes(q)) return false;
+    if(f==="monitoring") return Boolean(tags[sym]);
+    if(f==="alert") return st.level==="alert" || Boolean(tags[sym]);
+    if(f==="active") return st.level==="active";
     return true;
   });
 
   filtered.sort((x,y)=>{
     if(sMode==="risk"){
-      let rx=getSignal(x[0]).score+(tags[x[0]]?2:0);
-      let ry=getSignal(y[0]).score+(tags[y[0]]?2:0);
+      let rx=analyzeNewsState(x[0]).score+(tags[x[0]]?2:0);
+      let ry=analyzeNewsState(y[0]).score+(tags[y[0]]?2:0);
       if(ry!==rx) return ry-rx;
     }
     if(sMode==="change"){
@@ -163,44 +194,62 @@ function render(){
 
   document.getElementById("coins").innerHTML=filtered.map(a=>{
     let [sym,id,name]=a;
-    let h=getHandle(sym);
     let qty=getQty(sym);
     let val=getCoinValue(a);
     let m=market[id]||{};
-    let sig=getSignal(sym);
+    let st=analyzeNewsState(sym);
     let chg=m.price_change_percentage_24h;
-    return `<div class="coin" onclick="show('${sym}')">
-      <div>
-        <b>${sym}</b> <small>@${h}</small>
-        ${tags[sym]?'<span class="tag">MONITORING</span>':''}
-        <span class="${sig.cls}">${sig.label}</span><br>
-        <small>${qty.toLocaleString(undefined,{maximumFractionDigits:4})} ${sym}${m.current_price!=null?' · $'+m.current_price:''}</small>
-      </div>
-      <div class="price">
+    return `<tr class="coin-row" onclick="show('${sym}')">
+      <td>
+        <b>${sym}</b> ${tags[sym]?'<span class="tag">MONITORING</span>':''}<br>
+        <small>${name}</small>
+      </td>
+      <td>
         <b>$${val.toFixed(2)}</b><br>
+        <small>${qty.toLocaleString(undefined,{maximumFractionDigits:2})} ${sym}</small>
+      </td>
+      <td>
+        <span class="${st.cls}">${escapeHtml(st.label)}</span><br>
+        <small>${escapeHtml(st.sourceLabel)}</small>
+      </td>
+      <td class="price">
+        <b>${m.current_price!=null?'$'+m.current_price:'—'}</b><br>
         <small class="${(chg||0)>=0?'good':'bad'}">${chg==null?'':chg.toFixed(2)+'% 24h'}</small>
-      </div>
-    </div>`;
-  }).join("") || `<div class="panel"><p class="note">No coins match current filter.</p></div>`;
+      </td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="4" class="note">No coins match filter.</td></tr>`;
 }
 
-async function analyzeCoinBackend(a,force=false){
-  if(!apiBase) return null;
+async function fetchGoogleNewsForCoin(a){
   let [sym,,name]=a;
-  let handle=getHandle(sym);
-  let url=`${apiBase}/api/analyze?symbol=${encodeURIComponent(sym)}&name=${encodeURIComponent(name)}&handle=${encodeURIComponent(handle)}&force=${force}`;
-  let res=await fetch(url);
-  if(!res.ok) throw Error("API HTTP "+res.status);
-  let data=await res.json();
-  intel[sym]=data;
-  localStorage.setItem("azintel",JSON.stringify(intel));
-  return data;
+  let query=encodeURIComponent(`"${name}" OR "${sym}" (Binance OR CoinDesk OR CoinMarketCap OR "Crypto.news" OR hack OR exploit OR delist OR update)`);
+  let rssUrl=`https://news.google.com/rss/search?q=${query}&hl=en-US&gl=US&ceid=US:en`;
+  let apiUrl=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+  try{
+    let r=await fetch(apiUrl);
+    if(!r.ok) throw Error("HTTP "+r.status);
+    let j=await r.json();
+    if(j.status!=="ok" || !Array.isArray(j.items)) throw Error("Invalid feed");
+    let items=j.items.slice(0,6).map(it=>{
+      let rawTitle=it.title||"";
+      let parts=rawTitle.split(" - ");
+      let src=parts.length>1?parts.pop().trim():(it.author||"Google News");
+      let cleanTitle=parts.join(" - ").trim()||rawTitle;
+      return {title:cleanTitle,source:src,link:it.link||"",pubDate:it.pubDate||""};
+    });
+    newsScan[sym]={ok:true,items,checkedAt:new Date().toISOString()};
+    localStorage.setItem("aznews",JSON.stringify(newsScan));
+  }catch(e){
+    newsScan[sym]={ok:false,error:e.message,items:[],checkedAt:new Date().toISOString()};
+    localStorage.setItem("aznews",JSON.stringify(newsScan));
+  }
 }
 
 async function refresh(singleSym=null){
   let msg=document.getElementById("msg");
   let targetList=singleSym?A.filter(x=>x[0]===singleSym):A;
-  msg.textContent=singleSym?`Updating ${singleSym}…`:"Fetching CoinGecko prices & scanning X / News…";
+  msg.textContent=singleSym?`Updating ${singleSym} price & Google News…`:"Fetching CoinGecko prices & scanning Google News sources…";
 
   try{
     let ids=targetList.map(x=>x[1]).join(",");
@@ -212,18 +261,14 @@ async function refresh(singleSym=null){
     }
   }catch(e){}
 
-  let scanned=0;
-  if(apiBase){
-    for(let i=0;i<targetList.length;i+=4){
-      let batch=targetList.slice(i,i+4);
-      await Promise.all(batch.map(async a=>{
-        try{
-          await analyzeCoinBackend(a,Boolean(singleSym));
-          scanned++;
-          msg.textContent=`Scanning X & News: ${scanned}/${targetList.length}…`;
-        }catch(e){}
-      }));
-    }
+  let done=0;
+  for(let i=0;i<targetList.length;i+=3){
+    let batch=targetList.slice(i,i+3);
+    await Promise.all(batch.map(async a=>{
+      await fetchGoogleNewsForCoin(a);
+      done++;
+      msg.textContent=`Scanning Google News (Binance, CoinDesk, CMC, Crypto.news): ${done}/${targetList.length}…`;
+    }));
   }
 
   let nowStr=new Date().toLocaleTimeString();
@@ -232,9 +277,7 @@ async function refresh(singleSym=null){
     localStorage.setItem("azlastupdate",lastRun);
     document.getElementById("updated").textContent=lastRun;
   }
-  msg.textContent=apiBase
-    ?`Updated at ${nowStr}. Auto-analyzed ${scanned}/${targetList.length} coins.`
-    :`Prices updated at ${nowStr}. Configure Backend API URL above to automate X & News analysis.`;
+  msg.textContent=`Updated ${done}/${targetList.length} assets at ${nowStr}.`;
   render();
   if(selected) show(selected,false);
 }
@@ -243,38 +286,29 @@ function show(s,scroll=true){
   selected=s;
   let a=A.find(x=>x[0]===s);
   if(!a) return;
-  let [sym,id,name,,,snapUsdt,pnlUsdt,pnlPct]=a;
-  let handle=getHandle(sym);
+  let [sym,id,name,defHandle,,snapUsdt,pnlUsdt,pnlPct]=a;
+  let handle=getHandle(sym)||defHandle;
   let qty=getQty(sym);
   let val=getCoinValue(a);
   let m=market[id]||{};
   let n=notes[sym]||{};
-  let ai=intel[sym]||null;
+  let st=analyzeNewsState(sym);
+  let ns=newsScan[sym]||null;
 
-  let xHtml=`<p class="note">Click <b>↻ Update ${sym}</b> with backend API configured to fetch latest posts & engagement.</p>`;
-  if(ai && ai.x){
-    if(ai.x.ok){
-      let posts=(ai.x.recentPosts||[]).map(p=>`<div class="feed-item"><b>${p.daysAgo}d ago</b> · ❤️ ${p.likes} · 🔁 ${p.reposts} · 💬 ${p.replies}<br>${escapeHtml(p.text)}</div>`).join("");
-      xHtml=`
-        <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-          <div class="stat"><small>X Status</small><b>${ai.x.status.toUpperCase()}</b></div>
-          <div class="stat"><small>Last Post</small><b>${ai.x.daysSinceLastPost}d ago</b></div>
-          <div class="stat"><small>Avg Eng.</small><b>${ai.x.avgEngagement}</b></div>
-        </div>
-        ${posts||'<p class="note">No recent original posts found.</p>'}
-      `;
-    }else{
-      xHtml=`<p class="note">${escapeHtml(ai.x.error||"X data unavailable")}</p>`;
-    }
-  }
-
-  let newsHtml=`<p class="note">No automated news scan yet.</p>`;
-  if(ai && ai.news && ai.news.ok){
-    newsHtml=(ai.news.items||[]).map(item=>`<div class="feed-item ${item.isRisk?'risk':''}">
-      ${item.isRisk?'<span class="tag">RISK KEYWORD</span> ':''}
-      <a style="color:#edf4ff;text-decoration:none" target="_blank" href="${item.link}"><b>${escapeHtml(item.title)}</b></a><br>
-      <small>${escapeHtml(item.pubDate||"")}</small>
-    </div>`).join("") || `<p class="note">No recent news items.</p>`;
+  let itemsHtml=`<p class="note">Click <b>↻ Update ${sym}</b> to fetch latest Google News items.</p>`;
+  if(ns && ns.ok){
+    itemsHtml=(ns.items||[]).map(it=>{
+      let t=((it.title||"")+" "+(it.source||"")).toLowerCase();
+      let isRisk=RISK_WORDS.some(w=>t.includes(w));
+      return `<div class="feed-item ${isRisk?'risk':''}">
+        ${isRisk?'<span class="tag">RISK</span> ':''}
+        <span class="neu-tag">${escapeHtml(it.source||"News")}</span>
+        <a style="color:#edf4ff;text-decoration:none" target="_blank" href="${it.link}"><b>${escapeHtml(it.title)}</b></a><br>
+        <small>${escapeHtml(it.pubDate||"")}</small>
+      </div>`;
+    }).join("") || `<p class="note">No recent news articles returned for ${escapeHtml(name)}.</p>`;
+  }else if(ns && !ns.ok){
+    itemsHtml=`<p class="note">News fetch note (${escapeHtml(ns.error||"blocked")}): use direct source links below.</p>`;
   }
 
   let d=document.getElementById("detail");
@@ -283,14 +317,14 @@ function show(s,scroll=true){
     <div class="row" style="justify-content:space-between">
       <div>
         <h2 style="margin:0">${sym} · ${name}</h2>
-        <small>Holdings: ${qty} ${sym}</small>
+        <small>State: <b>${escapeHtml(st.label)}</b> · Sources: ${escapeHtml(st.sourceLabel)}</small>
       </div>
       <div class="row">
         <button onclick="refresh('${sym}')">↻ Update ${sym}</button>
         <button class="warn" onclick="document.getElementById('detail').classList.add('hide')">Close</button>
       </div>
     </div>
-    <p>${tags[sym]?'<span class="tag">BINANCE MONITORING</span>':''} <span class="${getSignal(sym).cls}">${getSignal(sym).label}</span></p>
+
     <div class="grid">
       <div class="stat"><small>Current Value</small><b>$${val.toFixed(2)}</b></div>
       <div class="stat"><small>Live Price</small><b>${m.current_price!=null?'$'+m.current_price:'—'}</b></div>
@@ -298,41 +332,34 @@ function show(s,scroll=true){
       <div class="stat"><small>24h Volume</small><b>${m.total_volume?'$'+Number(m.total_volume).toLocaleString():'—'}</b></div>
     </div>
 
-    ${(ai?.riskFlags?.length)?`<div class="feed-item risk"><b>⚠ Early Warning:</b> ${ai.riskFlags.map(escapeHtml).join(" · ")}</div>`:""}
-
-    <h3>Official X Analysis (@${escapeHtml(handle)})</h3>
-    ${xHtml}
-
-    <h3>Google News & Security Scanner</h3>
-    ${newsHtml}
+    <h3>Google News & Trusted Sources</h3>
+    ${itemsHtml}
 
     <div class="links">
-      <a target="_blank" href="https://x.com/${encodeURIComponent(handle)}">Open @${escapeHtml(handle)}</a>
-      <a target="_blank" href="https://news.google.com/search?q=${encodeURIComponent(name+' '+sym+' hack OR exploit OR delist')}">Risk News Search</a>
-      <a target="_blank" href="https://github.com/search?q=${encodeURIComponent(name)}&type=repositories">GitHub</a>
+      <a target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(name+' '+sym+' site:binance.com OR site:coindesk.com OR site:coinmarketcap.com OR site:crypto.news')}">Binance / CoinDesk / CMC / Crypto.news</a>
+      <a target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(name+' '+sym+' (hack OR exploit OR delist OR monitoring)')}">Risk Search</a>
+      <a target="_blank" href="https://x.com/search?q=${encodeURIComponent(handle?`from:${handle}`:name+' '+sym)}&f=live">X Official (@${escapeHtml(handle)})</a>
       <a target="_blank" href="https://www.coingecko.com/en/coins/${id}">CoinGecko</a>
     </div>
 
-    <h3>Edit Holdings & Notes</h3>
+    <h3>Edit Holdings & Manual Override</h3>
     <div class="grid" style="grid-template-columns:repeat(2,1fr)">
       <div>
         <label>Quantity Held</label>
         <input id="editQty" type="number" step="any" class="full" value="${qty}">
       </div>
       <div>
-        <label>Official X Handle</label>
-        <input id="xHandle" class="full" value="${escapeHtml(handle)}">
+        <label>Source / Note Tag</label>
+        <input id="sourceNote" class="full" value="${escapeHtml(n.sourceNote||"")}" placeholder="e.g. CoinDesk, Binance">
       </div>
     </div>
-    <label>Manual Status Override</label>
+    <label>Manual Status</label>
     <select id="xStatus" class="full">
-      <option value="unchecked">Auto / Unchecked</option>
-      <option value="active">Active Team</option>
-      <option value="low">Low Activity</option>
-      <option value="dormant">Dormant / Silent (Risk)</option>
+      <option value="unchecked">Auto (from Google News)</option>
+      <option value="dormant">Dormant Team (Risk)</option>
     </select>
-    <label><input type="checkbox" id="hasRisk" ${n.hasRisk?"checked":""}> Flag negative news / hack / delisting risk</label>
-    <label>Research Notes</label>
+    <label><input type="checkbox" id="hasRisk" ${n.hasRisk?"checked":""}> Mark as Risk Alert</label>
+    <label>Notes</label>
     <textarea id="team" class="full" rows="2">${escapeHtml(n.team||"")}</textarea>
     <button style="margin-top:10px" onclick="save('${sym}')">Save changes</button>
   `;
@@ -345,12 +372,11 @@ function escapeHtml(str){
 }
 
 function save(s){
-  let cleanHandle=document.getElementById("xHandle").value.trim().replace(/^@+/,"");
   let newQty=parseFloat(document.getElementById("editQty").value);
   notes[s]={
     ...(notes[s]||{}),
     qty:isNaN(newQty)?getQty(s):newQty,
-    handle:cleanHandle,
+    sourceNote:document.getElementById("sourceNote").value.trim(),
     xStatus:document.getElementById("xStatus").value,
     hasRisk:document.getElementById("hasRisk").checked,
     team:document.getElementById("team").value,
@@ -363,12 +389,12 @@ function save(s){
 }
 
 function exportData(){
-  let data={exported:new Date().toISOString(),assets:A,market,intel,notes,monitoring_snapshot:tags};
+  let data={exported:new Date().toISOString(),assets:A,market,newsScan,notes,monitoring_snapshot:tags};
   let b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
   let u=URL.createObjectURL(b);
   let a=document.createElement("a");
   a.href=u;
-  a.download="az-crypto-portfolio-intel.json";
+  a.download="az-crypto-news-intel.json";
   a.click();
   URL.revokeObjectURL(u);
 }
