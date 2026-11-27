@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101827"><title>AZ Crypto Intelligence</title><link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg" type="image/svg+xml"><style>
 body{margin:0;background:#0b1220;color:#edf4ff;font:15px system-ui}header{padding:20px 14px;background:#142b3c}.wrap{max-width:940px;margin:auto;padding:14px}h1{margin:0;font-size:22px}.muted,small{color:#9eb0c8}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}.stat,.panel{background:#121d2e;border:1px solid #26364d;border-radius:13px;padding:12px}.stat b{display:block;font-size:18px;margin-top:3px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}input,button,select,textarea{background:#18263a;color:#edf4ff;border:1px solid #30445e;border-radius:9px;padding:10px 12px;font:inherit}input{flex:1;min-width:120px}button{background:#1e8065;border:0;font-weight:bold;cursor:pointer}button.secondary{background:#243852}button.warn{background:#8a2c3b}.table-wrap{overflow-x:auto;background:#121d2e;border:1px solid #26364d;border-radius:13px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;border-bottom:1px solid #213047;text-align:left;vertical-align:top}th{color:#9eb0c8;font-weight:600;background:#101a2a;position:sticky;top:0}tr.coin-row{cursor:pointer}tr.coin-row:hover{background:#17253b}.price{text-align:right;white-space:nowrap}.tag{color:#ff9ca6;background:#48232d;border:1px solid #9c3448;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block;margin:1px 0;font-weight:700}.warn-tag{color:#ffd180;background:#4a3514;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block;margin:1px 0}.ok-tag{color:#8df0c8;background:#173d33;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block;margin:1px 0}.neu-tag{color:#a9c2e8;background:#1c2d45;border-radius:20px;padding:3px 7px;font-size:11px;display:inline-block;margin:1px 0}.good{color:#36d69a}.bad{color:#ff6b79}.hide{display:none}.links{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.links a{color:#8ddfc4;background:#18263a;padding:9px;border-radius:8px;text-decoration:none;font-size:13px}label{display:block;color:#9eb0c8;font-size:12px;margin:8px 0 4px}.full{width:100%;box-sizing:border-box}.note{font-size:12px;line-height:1.5;color:#9eb0c8}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.feed-item{background:#162338;border:1px solid #293b56;border-radius:9px;padding:9px;margin-top:6px;font-size:13px}.feed-item.risk{border-color:#c83e55;background:#331722}@media(min-width:640px){.grid{grid-template-columns:repeat(4,1fr)}}
-</style></head><body><header><div class="wrap"><h1>◈ AZ Crypto Intelligence</h1><p class="muted">Binance Announcements (c=49 & c=161) · Google News Sources · X Activity</p></div></header><main class="wrap">
+</style></head><body><header><div class="wrap"><h1>◈ AZ Crypto Intelligence</h1><p class="muted">Crypto-Only News Sources · Binance Monitoring/Delisting · X Activity</p></div></header><main class="wrap">
 <div class="stats">
   <div class="stat"><small>Portfolio Value</small><b id="totalVal">$618.62</b></div>
   <div class="stat"><small>High Risk / Monitoring</small><b id="riskVal">$0.00 (0)</b></div>
@@ -8,7 +8,7 @@ body{margin:0;background:#0b1220;color:#edf4ff;font:15px system-ui}header{paddin
 </div>
 
 <div class="toolbar">
-  <input id="search" placeholder="Search coin, @handle, source, or status…">
+  <input id="search" placeholder="Search coin, @handle, crypto source, or status…">
   <select id="filter">
     <option value="all">All coins</option>
     <option value="alert">🚨 High Risk / Monitoring / Dormant X</option>
@@ -24,7 +24,7 @@ body{margin:0;background:#0b1220;color:#edf4ff;font:15px system-ui}header{paddin
   <button class="secondary" onclick="toggleAddCoin()">+ Add Coin</button>
   <button class="secondary" onclick="exportData()">Export</button>
 </div>
-<p id="msg" class="note">Checks Binance announcements (c=49 Monitoring & c=161 Delisting), Google News sources, and X activity (30d window).</p>
+<p id="msg" class="note">Filtered to crypto news sources (CoinDesk, Cointelegraph, CoinMarketCap, Crypto.news, Decrypt, The Block, Binance).</p>
 
 <section id="addCoinPanel" class="panel hide" style="margin-bottom:12px">
   <div class="row" style="justify-content:space-between">
@@ -86,9 +86,20 @@ const BASE_A=[
   ["ROSE","oasis-network","Oasis Network","oasisprotocol",492.3851796542,2.17,-68.52,-5.87]
 ];
 
-const TRUSTED_SOURCES=["Binance","CoinDesk","CoinMarketCap","Crypto.news","Cointelegraph","Decrypt","The Block"];
+const CRYPTO_SITES=[
+  "coindesk.com",
+  "cointelegraph.com",
+  "coinmarketcap.com",
+  "crypto.news",
+  "decrypt.co",
+  "theblock.co",
+  "cryptobriefing.com",
+  "dlnews.com",
+  "binance.com"
+];
+
 const BINANCE_NOTICE_PHRASES=["monitoring tag","extend the monitoring tag","monitoring list","delist","delisting","seed tag","will delist"];
-const RISK_WORDS=["hack","hacked","exploit","exploited","vulnerability","breach","compromised","delist","delisting","monitoring tag","halt","halted","insolvent","lawsuit","rug","warning","attack"];
+const RISK_WORDS=["hack","hacked","exploit","exploited","vulnerability","breach","compromised","delist","delisting","monitoring tag","halt","halted","insolvent","lawsuit","rug","attack"];
 const POS_WORDS=["launch","upgrade","partnership","mainnet","integration","roadmap","release","update","staking","expand"];
 
 let customCoins=JSON.parse(localStorage.getItem("azcustomcoins")||"[]");
@@ -158,11 +169,19 @@ function getCoinValue(a){
   return snapUsdt;
 }
 
-function matchCoinInNotice(sym, name, title){
-  let upper=" "+String(title||"").toUpperCase().replace(/[^A-Z0-9]+/g," ")+" ";
+function matchCoinInText(sym, name, text){
+  let upper=" "+String(text||"").toUpperCase().replace(/[^A-Z0-9]+/g," ")+" ";
   let symMatch=upper.includes(" "+sym.toUpperCase()+" ");
-  let nameMatch=name && String(title||"").toLowerCase().includes(name.toLowerCase());
+  let nameMatch=name && String(text||"").toLowerCase().includes(name.toLowerCase());
   return symMatch || nameMatch;
+}
+
+function isCoinRiskNews(sym, name, title){
+  let t=String(title||"").toLowerCase();
+  if(/hack week|buildathon/i.test(t)) return false;
+  let mentionsCoin=matchCoinInText(sym,name,title);
+  let hasRiskWord=RISK_WORDS.some(w=>t.includes(w));
+  return mentionsCoin && hasRiskWord;
 }
 
 function getBinanceCoinAlerts(sym, name){
@@ -171,7 +190,7 @@ function getBinanceCoinAlerts(sym, name){
     let t=n.title||"";
     let tl=t.toLowerCase();
     let isRelevant=BINANCE_NOTICE_PHRASES.some(p=>tl.includes(p));
-    if(isRelevant && matchCoinInNotice(sym,name,t)) hits.push(n);
+    if(isRelevant && matchCoinInText(sym,name,t)) hits.push(n);
   });
   return hits;
 }
@@ -210,17 +229,15 @@ function analyzeCombinedState(sym, name){
     let items=ns.items||[];
     newsCount=items.length;
     items.forEach(it=>{
-      let text=((it.title||"")+" "+(it.source||"")).toLowerCase();
-      TRUSTED_SOURCES.forEach(src=>{
-        if(text.includes(src.toLowerCase()) && !sourcesFound.includes(src)) sourcesFound.push(src);
-      });
-      if(it.source && !sourcesFound.includes(it.source)) sourcesFound.push(it.source);
-      if(RISK_WORDS.some(w=>text.includes(w))) riskHits.push(it.title);
-      if(POS_WORDS.some(w=>text.includes(w))) posHits++;
+      let title=it.title||"";
+      let src=it.source||"";
+      if(src && !sourcesFound.includes(src)) sourcesFound.push(src);
+      if(isCoinRiskNews(sym,name,title)) riskHits.push(title);
+      if(POS_WORDS.some(w=>(title+" "+src).toLowerCase().includes(w))) posHits++;
     });
   }
 
-  let srcPart=sourcesFound.slice(0,2).join(" · ") || "News";
+  let srcPart=sourcesFound.slice(0,2).join(" · ") || "Crypto News";
   let xPart=xSt==="active" ? `X: Active 30d (@${handle})` : (xSt==="low" ? `X: >30d/Low (@${handle})` : `X: @${handle}`);
 
   if(mon){
@@ -313,7 +330,7 @@ async function fetchRssItems(query){
         return j.items.slice(0,8).map(it=>{
           let rawTitle=it.title||"";
           let parts=rawTitle.split(" - ");
-          let src=parts.length>1?parts.pop().trim():(it.author||"Google News");
+          let src=parts.length>1?parts.pop().trim():(it.author||"Crypto News");
           let cleanTitle=parts.join(" - ").trim()||rawTitle;
           return {title:cleanTitle,source:src,link:it.link||"",pubDate:it.pubDate||""};
         });
@@ -332,7 +349,7 @@ async function fetchRssItems(query){
     let link=(n.querySelector("link")?.textContent||"").trim();
     let pubDate=(n.querySelector("pubDate")?.textContent||"").trim();
     let parts=rawTitle.split(" - ");
-    let src=parts.length>1?parts.pop().trim():"Google News";
+    let src=parts.length>1?parts.pop().trim():"Crypto News";
     let cleanTitle=parts.join(" - ").trim()||rawTitle;
     return {title:cleanTitle,source:src,link,pubDate};
   });
@@ -352,28 +369,6 @@ async function fetchBinanceAnnouncements(){
     }catch(e){}
   }
 
-  const directPages=[
-    "https://www.binance.com/en-GB/support/announcement/latest-binance-news?c=49&navId=49",
-    "https://www.binance.com/en-GB/support/announcement/delisting?c=161&navId=161"
-  ];
-  for(let url of directPages){
-    try{
-      let r=await fetch("https://api.allorigins.win/raw?url="+encodeURIComponent(url));
-      if(r.ok){
-        let html=await r.text();
-        let doc=new DOMParser().parseFromString(html,"text/html");
-        doc.querySelectorAll("a,h2,h3,h4").forEach(el=>{
-          let txt=(el.textContent||"").replace(/\s+/g," ").trim();
-          let href=el.getAttribute("href")||"";
-          if(txt.length>20 && txt.length<240 && /(monitoring tag|delist|delisting)/i.test(txt)){
-            let fullLink=href.startsWith("http")?href:(href.startsWith("/")?"https://www.binance.com"+href:url);
-            combined.push({title:txt,source:"Binance Announcement",link:fullLink,pubDate:new Date().toUTCString()});
-          }
-        });
-      }
-    }catch(e){}
-  }
-
   const seen=new Set();
   binanceNotices=combined.filter(it=>{
     let k=(it.title||"").toLowerCase().trim();
@@ -388,7 +383,8 @@ async function fetchCoinIntel(a){
   let [sym,,name]=a;
   let handle=getHandle(sym);
 
-  let newsQuery=`"${name}" OR "${sym}" (Binance OR CoinDesk OR CoinMarketCap OR "Crypto.news" OR hack OR exploit OR update)`;
+  let siteFilter=CRYPTO_SITES.map(s=>"site:"+s).join(" OR ");
+  let newsQuery=`("${name}" OR "${sym}") (${siteFilter})`;
   try{
     let items=await fetchRssItems(newsQuery);
     newsScan[sym]={ok:true,items,checkedAt:new Date().toISOString()};
@@ -399,7 +395,7 @@ async function fetchCoinIntel(a){
 
   if(handle){
     try{
-      let xQuery=`site:x.com/${handle} OR site:twitter.com/${handle} OR "${handle}" crypto`;
+      let xQuery=`site:x.com/${handle} OR site:twitter.com/${handle}`;
       let xItems=await fetchRssItems(xQuery);
       xScan[sym]={ok:true,handle,items:xItems,checkedAt:new Date().toISOString()};
     }catch(e){
@@ -413,7 +409,7 @@ async function refresh(singleSym=null){
   const ALL=getAssets();
   let msg=document.getElementById("msg");
   let targetList=singleSym?ALL.filter(x=>x[0]===singleSym):ALL;
-  msg.textContent=singleSym?`Updating ${singleSym} price, Binance notices, news & X…`:"Fetching CoinGecko prices & Binance notices (c=49 & c=161)…";
+  msg.textContent=singleSym?`Updating ${singleSym} price, crypto news, Binance notices & X…`:"Fetching CoinGecko prices & crypto news sources…";
 
   try{
     let ids=targetList.map(x=>x[1]).join(",");
@@ -433,7 +429,7 @@ async function refresh(singleSym=null){
     await Promise.all(batch.map(async a=>{
       await fetchCoinIntel(a);
       done++;
-      msg.textContent=`Scanning News & X signals: ${done}/${targetList.length}…`;
+      msg.textContent=`Scanning crypto sources & X signals: ${done}/${targetList.length}…`;
     }));
   }
 
@@ -483,18 +479,17 @@ function show(s,scroll=true){
     binanceHtml=`<p class="note">No Monitoring Tag or delisting announcement matched ${sym} in fetched Binance announcements.</p>`;
   }
 
-  let itemsHtml=`<p class="note">Click <b>↻ Update ${sym}</b> to fetch latest Google News items.</p>`;
+  let itemsHtml=`<p class="note">Click <b>↻ Update ${sym}</b> to fetch latest crypto news items.</p>`;
   if(ns && ns.ok){
     itemsHtml=(ns.items||[]).map(it=>{
-      let t=((it.title||"")+" "+(it.source||"")).toLowerCase();
-      let isRisk=RISK_WORDS.some(w=>t.includes(w));
+      let isRisk=isCoinRiskNews(sym,name,it.title||"");
       return `<div class="feed-item ${isRisk?'risk':''}">
         ${isRisk?'<span class="tag">RISK</span> ':''}
-        <span class="neu-tag">${escapeHtml(it.source||"News")}</span>
+        <span class="neu-tag">${escapeHtml(it.source||"Crypto News")}</span>
         <a style="color:#edf4ff;text-decoration:none" target="_blank" href="${it.link}"><b>${escapeHtml(it.title)}</b></a><br>
         <small>${escapeHtml(it.pubDate||"")}</small>
       </div>`;
-    }).join("") || `<p class="note">No recent news articles returned for ${escapeHtml(name)}.</p>`;
+    }).join("") || `<p class="note">No recent crypto news articles returned for ${escapeHtml(name)}.</p>`;
   }
 
   let xItemsHtml=`<p class="note">Click <b>↻ Update ${sym}</b> to check indexed X mentions/updates.</p>`;
@@ -557,11 +552,11 @@ function show(s,scroll=true){
       <small id="engResult">Enter numbers above to compute engagement rate.</small>
     </div>
 
-    <h3>Google News & Trusted Sources</h3>
+    <h3>Crypto News Sources</h3>
     ${itemsHtml}
 
     <div class="links">
-      <a target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(name+' '+sym+' site:binance.com OR site:coindesk.com OR site:coinmarketcap.com OR site:crypto.news')}">Binance / CoinDesk / CMC / Crypto.news</a>
+      <a target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(name+' '+sym+' site:coindesk.com OR site:cointelegraph.com OR site:coinmarketcap.com OR site:crypto.news')}">CoinDesk / Cointelegraph / CMC / Crypto.news</a>
       <a target="_blank" href="https://www.coingecko.com/en/coins/${id}">CoinGecko</a>
     </div>
 
